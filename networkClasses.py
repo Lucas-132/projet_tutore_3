@@ -53,8 +53,9 @@ class Network:
                 self.port_entree[port] = 0
                 break
         # Sorties
-        for port in range(len(self.port_sortie)) :
-            if self.port_sortie[port] == other.client:
-                self.port_sortie[port] = 0
-                break
+        for client in other.client:
+            for port in range(len(self.port_sortie)) :
+                if self.port_sortie[port] == client:
+                    self.port_sortie[port] = 0
+                    break
                 
