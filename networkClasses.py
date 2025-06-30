@@ -2,14 +2,16 @@ class Server:
     def __init__ (self, nom:str, prix:int= 5000):
         self.nom = nom
         self.prix = prix
-        self.client : object = None
+        self.client : list[object] = []
         
-    def bind(self, other : object):
-        self.client = other
+    def bind(self, others : list[object]):
+        for machine in others:
+            self.client.append(machine.nom)
     
-    def unbind(self):
-        self.client = None
-
+    def unbind(self, others : list[object]):
+        for machine in others:
+            self.client.remove(machine.nom)
+    
     def __str__(self):
         return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClient connecté au serveur :{self.client.nom}\n "
     
@@ -21,7 +23,7 @@ class Client(Server):
         self.prix = prix
 
     def __str__(self):
-        return f"Nom du PC : {self.nom}\nPrix du PC :{self.prix}\n"
+        return f"Nom du PC : {self.nom}, Prix du PC :{self.prix}\n"
         
 class Network:
     
@@ -31,22 +33,29 @@ class Network:
 
     
     def add_server(self, other: object):
+        # Entrées
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == 0:
                 self.port_entree[port] = other.nom
                 break
-        for port in range(len(self.port_sortie)) :
-            if self.port_sortie[port] == 0:
-                self.port_sortie[port] = other.client
-                break
+        # Sorties
+        for client in range (len(other.client)):
+            for port in range(len(self.port_sortie)) :
+                if self.port_sortie[port] == 0:
+                    self.port_sortie[port] = other.client[client]
+                    break
+                
     
     def delete_server(self, other: object):
+        # Entrées
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == other.nom:
                 self.port_entree[port] = 0
                 break
-            
-        for port in range(len(self.port_sortie)) :
-            if self.port_sortie[port] == other.client:
-                self.port_sortie[port] = 0
-                break
+        # Sorties
+        for client in other.client:
+            for port in range(len(self.port_sortie)) :
+                if self.port_sortie[port] == client:
+                    self.port_sortie[port] = 0
+                    break
+                
