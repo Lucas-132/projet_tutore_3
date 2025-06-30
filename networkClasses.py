@@ -11,7 +11,7 @@ class Server:
         self.client = None
 
     def __str__(self):
-        return f"Nom du server : {self.nom}\n Prix du serveur :{self.prix}\n Client connecté au serveur :{self.client}\n "
+        return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClient connecté au serveur :{self.client.nom}\n "
     
 class Client(Server):
     
@@ -21,7 +21,7 @@ class Client(Server):
         self.prix = prix
 
     def __str__(self):
-        return f"Nom du PC : {self.nom}\n Prix du PC :{self.prix}\n"
+        return f"Nom du PC : {self.nom}\nPrix du PC :{self.prix}\n"
         
 class Network:
     
@@ -33,10 +33,13 @@ class Network:
     def add_server(self, other: object):
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == 0:
+                self.port_entree.pop(port+1)
                 self.port_entree.insert(port, other.nom)
+                break
     
     def delete_server(self, other: object):
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == other.nom:
+                self.port_entree.pop(port+1)
                 self.port_entree.insert(port, 0)
-    
+                break
