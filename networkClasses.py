@@ -26,11 +26,17 @@ class Client(Server):
 class Network:
     
     def __init__(self):
-        pass
+        self.port_entree = [0 for x in range(3)]
+        self.port_sortie = [0 for x in range(16)]
+
     
     def add_server(self, other: object):
-        pass
+        for port in range(len(self.port_entree)) :
+            if self.port_entree[port] == 0:
+                self.port_entree.insert(port, other.nom)
     
     def delete_server(self, other: object):
-        pass
+        for port in range(len(self.port_entree)) :
+            if self.port_entree[port] == other.nom:
+                self.port_entree.insert(port, 0)
     
