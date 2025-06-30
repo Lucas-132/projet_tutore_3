@@ -22,7 +22,7 @@ class Server:
         clients_lists = ""
         for client in self.client:
             clients_lists += client.nom + ", "
-        return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClients connecté au serveur : {clients_lists}\n"
+        return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClients connecté au serveur : {clients_lists}"
     
 class Client(Server):
     
@@ -32,7 +32,7 @@ class Client(Server):
         self.prix = prix
     
     def __str__(self):
-        return f"Nom du PC : {self.nom}, Prix du PC :{self.prix}\n"
+        return f"Nom du PC : {self.nom}, Prix du PC :{self.prix}"
         
 class Network:
     
@@ -68,8 +68,8 @@ class Network:
                     self.port_sortie[port] = 0
                     break
                 
-    """def global_cost(self):
+    def global_cost(self):
         sum = 0
         for server in self.port_entree:
-            print(server)
-        return sum"""
+            sum += server.prix
+        return sum
