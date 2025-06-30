@@ -37,7 +37,7 @@ class Network:
                 break
         for port in range(len(self.port_sortie)) :
             if self.port_sortie[port] == 0:
-                self.port_sortie[port] = other.client
+                self.port_sortie[port] = other.client.nom
                 break
     
     def delete_server(self, other: object):
@@ -47,6 +47,6 @@ class Network:
                 break
             
         for port in range(len(self.port_sortie)) :
-            if self.port_sortie[port] == other.client:
+            if self.port_sortie[port] == other.client.nom:
                 self.port_sortie[port] = 0
                 break
