@@ -33,13 +33,13 @@ class Network:
     def add_server(self, other: object):
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == 0:
-                self.port_entree.pop(port+1)
                 self.port_entree.insert(port, other.nom)
+                self.port_entree.pop(port)
                 break
     
     def delete_server(self, other: object):
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == other.nom:
-                self.port_entree.pop(port+1)
                 self.port_entree.insert(port, 0)
+                self.port_entree.pop(port)
                 break
