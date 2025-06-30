@@ -9,8 +9,11 @@ if __name__ == "__main__":
   client2 = Client("c2", 2000)
   client3 = Client("c3", 3000)
 
-  print(server_1.nom, server_1.prix, server_1.client)
-
   server_1.bind(client1)
 
-  print(server_1.nom, server_1.prix, server_1.client)
+  network = Network()
+  network.add_server(server_1)
+  #network.add_server(server_2)
+  #network.add_server(server_3)
+  print(network.port_entree)
+  print(network.port_sortie)
