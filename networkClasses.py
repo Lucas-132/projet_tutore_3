@@ -19,6 +19,9 @@ class Client(Server):
         super().__init__(nom, prix)
         self.nom = nom
         self.prix = prix
+    
+    def __str__(self):
+        return f"Nom du PC : {self.nom}\n Prix du PC :{self.prix}\n"
         
 class Network:
     
