@@ -35,9 +35,18 @@ class Network:
             if self.port_entree[port] == 0:
                 self.port_entree[port] = other.nom
                 break
+        for port in range(len(self.port_sortie)) :
+            if self.port_sortie[port] == 0:
+                self.port_sortie[port] = other.client
+                break
     
     def delete_server(self, other: object):
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == other.nom:
                 self.port_entree[port] = 0
+                break
+            
+        for port in range(len(self.port_sortie)) :
+            if self.port_sortie[port] == other.client:
+                self.port_sortie[port] = 0
                 break
