@@ -4,11 +4,13 @@ class Server:
         self.prix = prix
         self.client : list[object] = []
         
-    def bind(self, other : object):
-        self.client.append(other.nom)
+    def bind(self, others : list[object]):
+        for machine in others:
+            self.client.append(machine.nom)
     
-    def unbind(self, other : object):
-        self.client.remove(other.nom)
+    def unbind(self, others : list[object]):
+        for machine in others:
+            self.client.remove(machine.nom)
     
     def __str__(self):
         return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClient connecté au serveur :{self.client.nom}\n "
@@ -37,7 +39,6 @@ class Network:
                 self.port_entree[port] = other.nom
                 break
         # Sorties
-        
         for client in range (len(other.client)):
             for port in range(len(self.port_sortie)) :
                 if self.port_sortie[port] == 0:
