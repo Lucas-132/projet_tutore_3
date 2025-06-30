@@ -1,17 +1,25 @@
 import sqlite3
-import networkClasses.py
-import main.py
+import networkClasses
+
+
+
+net = networkClasses.Network() 
 
 
 conn = sqlite3.connect('NetworkDB.db')
 cur = conn.cursor()
 
-# Création des tables
+
+cur.execute("DROP TABLE IF EXISTS Client")
+cur.execute("DROP TABLE IF EXISTS Server")
+cur.execute("DROP TABLE IF EXISTS Network")
+
+
 cur.execute("""
 CREATE TABLE IF NOT EXISTS Client (
     nom TEXT PRIMARY KEY,
     prix INT,
-    PortSortie INT
+    port_sortie TEXT
 )
 """)
 
@@ -20,34 +28,31 @@ CREATE TABLE IF NOT EXISTS Server (
     nom TEXT PRIMARY KEY,
     prix INT,
     TableauDesNomsDesClients TEXT,
-    PortEntree INT,
-    PrixTotalServ INT,
-    FOREIGN KEY (TableauDesNomsDesClients) REFERENCES Client(nom)
+    port_entree TEXT,
+    PrixTotalServ INT
 )
 """)
 
 cur.execute("""
 CREATE TABLE IF NOT EXISTS Network (
-    networkClasses.port_sortie LIST, 
+    ListPort TEXT, 
     PrixTotalNet INT
 )
 """)
 
-# Insertion des clients
-clients = [(f'C{i}', 1000, None) for i in range(1, 17)]
-cur.executemany("INSERT INTO Client (nom, prix, PortSortie) VALUES (?, ?, ?)", clients)
 
-# Insertion des serveurs (exemple avec 3 serveurs)
+clients = [(f'C{i}', 1000, net.port_sortie[i-1]) for i in range(1, 17)]
+cur.executemany("INSERT INTO Client (nom, prix, port_sortie) VALUES (?, ?, ?)", clients)
+
 servers = [
-    ('S1', 5000, 'C1', 1, 6000),
-    ('S2', 5000, 'C2', 2, 6000),
-    ('S3', 5000, 'C3', 3, 6000),
+    ('S1', 5000, 'C1', str(net.port_entree), 6000),
+    ('S2', 5000, 'C2', str(net.port_entree), 6000),
+    ('S3', 5000, 'C3', str(net.port_entree), 6000),
 ]
-cur.executemany("INSERT INTO Server (nom, prix, TableauDesNomsDesClients, PortEntree, PrixTotalServ) VALUES (?, ?, ?, ?, ?)", servers)
+cur.executemany("INSERT INTO Server (nom, prix, TableauDesNomsDesClients, port_entree, PrixTotalServ) VALUES (?, ?, ?, ?, ?)", servers)
 
-# Insertion réseau (exemple)
 network = [
-    ('1,2,3', 18000),
+    (str(net.port_sortie), 18000),
 ]
 cur.executemany("INSERT INTO Network (ListPort, PrixTotalNet) VALUES (?, ?)", network)
 
