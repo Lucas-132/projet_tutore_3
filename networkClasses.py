@@ -19,7 +19,10 @@ class Server:
         return sum + self.prix
     
     def __str__(self):
-        return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClient connecté au serveur :{self.client.nom}\n "
+        clients_lists = ""
+        for client in self.client:
+            clients_lists += client.nom + ", "
+        return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClients connecté au serveur : {clients_lists}\n"
     
 class Client(Server):
     
@@ -38,21 +41,21 @@ class Network:
         self.port_sortie = [0 for x in range(16)]
 
     
-    def add_server(self, other: object):
+    def add_server(self, other: Server):
         # Entrées
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == 0:
-                self.port_entree[port] = other.nom
+                self.port_entree[port] = other
                 break
         # Sorties
         for client in range (len(other.client)):
             for port in range(len(self.port_sortie)) :
                 if self.port_sortie[port] == 0:
-                    self.port_sortie[port] = other.client[client].nom
+                    self.port_sortie[port] = other.client[client]
                     break
                 
     
-    def delete_server(self, other: object):
+    def delete_server(self, other:Server):
         # Entrées
         for port in range(len(self.port_entree)) :
             if self.port_entree[port] == other:
@@ -65,3 +68,8 @@ class Network:
                     self.port_sortie[port] = 0
                     break
                 
+    """def global_cost(self):
+        sum = 0
+        for server in self.port_entree:
+            print(server)
+        return sum"""
