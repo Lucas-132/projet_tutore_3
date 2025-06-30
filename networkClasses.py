@@ -10,6 +10,9 @@ class Server:
     def unbind(self):
         self.client = None
     
+    def __str__(self):
+        return f"Nom du server : {self.nom}\n Prix du serveur :{self.prix}\n Client connecté au serveur :{self.client}\n "
+    
 class Client(Server):
     
     def __init__(self, nom : str, prix:int=1000):
