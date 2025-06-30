@@ -11,7 +11,7 @@ class Server:
         self.client = None
     
     def __str__(self):
-        return f"Nom du server : {self.nom}\n Prix du serveur :{self.prix}\n Client connecté au serveur :{self.client}\n "
+        return f"Nom du server : {self.nom}\nPrix du serveur :{self.prix}\nClient connecté au serveur :{self.client.nom}\n "
     
 class Client(Server):
     
@@ -21,7 +21,7 @@ class Client(Server):
         self.prix = prix
     
     def __str__(self):
-        return f"Nom du PC : {self.nom}\n Prix du PC :{self.prix}\n"
+        return f"Nom du PC : {self.nom}\nPrix du PC :{self.prix}\n"
         
 class Network:
     
