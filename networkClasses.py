@@ -37,12 +37,11 @@ class Network:
                 self.port_entree[port] = other.nom
                 break
         # Sorties
-        client = 1
-        while client <= (len(other.client)):
+        
+        for client in range (len(other.client)):
             for port in range(len(self.port_sortie)) :
                 if self.port_sortie[port] == 0:
-                    self.port_sortie[port] = other.client[client-1]
-                    client += 1
+                    self.port_sortie[port] = other.client[client]
                     break
                 
     
