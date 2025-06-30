@@ -9,9 +9,6 @@ class Server:
     
     def unbind(self):
         self.client = None
-        
-    def __str__(self):
-        return f"{self.nom} {self.prix} {self.client} "
     
 class Client(Server):
     
