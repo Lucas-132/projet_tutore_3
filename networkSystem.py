@@ -1,3 +1,5 @@
+import random
+
 class Server:
     def __init__ (self, name:str, price:int= 5000):
         self.name = name
@@ -44,16 +46,24 @@ class Network:
     
     def add_server(self, other: Server):
         # Inputs
+        free_space_input = []
         for port in range(len(self.port_input)) :
             if self.port_input[port] == 0:
-                self.port_input[port] = other
-                break
+                free_space_input.append(port)
+        self.port_input[random.choice(free_space_input)] = other
+        
         # Outputs
+        free_space_output = []
+        temp_free_space_selected = 0
+        for port in range(len(self.port_output)) :
+            if self.port_output[port] == 0:
+                free_space_output.append(port)
+        
         for client in range (len(other.client)):
-            for port in range(len(self.port_output)) :
-                if self.port_output[port] == 0:
-                    self.port_output[port] = other.client[client]
-                    break
+            """self.port_output[port] = other.client[client]"""
+            temp_free_space_selected = random.choice(free_space_output)
+            self.port_output[temp_free_space_selected] = other.client[client]
+            free_space_output.remove(temp_free_space_selected)
                 
     
     def delete_server(self, other:Server):
