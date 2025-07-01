@@ -1,5 +1,4 @@
 import random
-import re
 
 class Server:
     def __init__ (self, name:str, price:int= 5000):
