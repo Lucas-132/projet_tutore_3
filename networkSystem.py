@@ -84,14 +84,14 @@ class Network:
         for input_port_number in range (len(self.port_input)):
             if self.port_input[input_port_number] != 0:
                 # Adding Input port infos to str message
-                message += f"\n\t{self.port_input[input_port_number].name} Server Cost: {self.port_input[input_port_number].price} Port: {input_port_number} Server global Cost: {self.port_input[input_port_number].global_server_cost()}"
+                message += f"\n\t{self.port_input[input_port_number].name} Server Cost: {self.port_input[input_port_number].price} Port: {input_port_number + 1} Server global Cost: {self.port_input[input_port_number].global_server_cost()}"
                 # Adding binded machines (clients) infos
                 for client in self.port_input[input_port_number].client:
                     message += f"\n\t\t{client.name} {client.price}"
                     # Checking which output port the client is connected to and adding this port to str message
                     for output_port_number in range(len(self.port_output)):
                         if client == self.port_output[output_port_number]:
-                            message += f" Port: {output_port_number}"
+                            message += f" Port: {output_port_number + 1}"
         
         # Adding outputs ports recap to str message
         port_output_names = [] # (this array is used to display the distribution of the clients inside the network)
