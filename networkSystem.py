@@ -40,10 +40,12 @@ class Client(Server):
         return f"PC name : {self.name}, PC price : {self.price}"
     
 class Printer(Server):
-    def __init__(self, ip:str, price = 1000):
-        super().__init__(price)
+    def __init__(self, name, ip:str, price = 1000):
+        super().__init__(name, price)
+        self.name = name
         self.ip = ip
         self.price = price
+        self.binded_server = None
 
     def __str__(self):
         return f"Printer IP : {self.ip}, Printer price : {self.price}"
@@ -69,7 +71,7 @@ class Network:
         temp_free_space_selected = 0
         for port in range(len(self.port_output)) :
             if self.port_output[port] == 0:
-                free_space_output.append(port) 
+                free_space_output.append(port)
         for client in range (len(other.client)):
             temp_free_space_selected = random.choice(free_space_output)
             self.port_output[temp_free_space_selected] = other.client[client]
@@ -107,7 +109,10 @@ class Network:
                 message += f"\n\t{self.port_input[input_port_number].name} Server Cost: {self.port_input[input_port_number].price} Port: {input_port_number + 1} Server global Cost: {self.port_input[input_port_number].global_server_cost()}"
                 # Adding binded machines (clients) infos
                 for client in self.port_input[input_port_number].client:
-                    message += f"\n\t\t{client.name} {client.price}"
+                    if type(client) == Printer:
+                        message += f"\n\t\t\t{client.name} {client.ip} {client.price}"
+                    else:
+                        message += f"\n\t\t{client.name} {client.price}"
                     # Checking which output port the client is connected to and adding this port to str message
                     for output_port_number in range(len(self.port_output)):
                         if client == self.port_output[output_port_number]:
