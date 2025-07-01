@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import random
 
->>>>>>> main
 class Server:
     def __init__ (self, name:str, price:int= 5000):
         self.name = name
@@ -12,11 +9,8 @@ class Server:
     def bind(self, others : list[object]):
         for machine in others:
             self.client.append(machine)
-<<<<<<< HEAD
-=======
             machine.binded_server = self
         
->>>>>>> main
     
     def unbind(self, others : list[object]):
         for machine in others:
@@ -26,7 +20,9 @@ class Server:
         sum = 0
         for machine in self.client:
             sum += machine.price
+        self.global_price = sum + self.price
         return sum + self.price
+
     
     def __str__(self):
         clients_lists = ""
@@ -35,19 +31,10 @@ class Server:
         return f"Server name : {self.name}\nServer price :{self.price}\nClients connected to server : {clients_lists}"
     
 class Client(Server):
-<<<<<<< HEAD
-    
-=======
->>>>>>> main
     def __init__(self, name : str, price:int=1000):
         super().__init__(name, price)
         self.name = name
         self.price = price
-<<<<<<< HEAD
-
-    def __str__(self):
-        return f"PC name : {self.name}, PC price :{self.price}"
-=======
         self.binded_server = None
 
     def __str__(self):
@@ -63,7 +50,6 @@ class Printer(Server):
 
     def __str__(self):
         return f"Printer IP : {self.ip}, Printer price : {self.price}"
->>>>>>> main
         
 class Network:
     
@@ -75,18 +61,6 @@ class Network:
     
     def add_server(self, other: Server):
         # Inputs
-<<<<<<< HEAD
-        for port in range(len(self.port_input)) :
-            if self.port_input[port] == 0:
-                self.port_input[port] = other
-                break
-        # Outputs
-        for client in range (len(other.client)):
-            for port in range(len(self.port_output)) :
-                if self.port_output[port] == 0:
-                    self.port_output[port] = other.client[client]
-                    break
-=======
         free_space_input = []
         for port in range(len(self.port_input)) :
             if self.port_input[port] == 0:
@@ -103,7 +77,6 @@ class Network:
             temp_free_space_selected = random.choice(free_space_output)
             self.port_output[temp_free_space_selected] = other.client[client]
             free_space_output.remove(temp_free_space_selected)
->>>>>>> main
                 
     
     def delete_server(self, other:Server):
@@ -134,16 +107,6 @@ class Network:
         for input_port_number in range (len(self.port_input)):
             if self.port_input[input_port_number] != 0:
                 # Adding Input port infos to str message
-<<<<<<< HEAD
-                message += f"\n\t{self.port_input[input_port_number].name} Server Cost: {self.port_input[input_port_number].price} Port: {input_port_number} Server global Cost: {self.port_input[input_port_number].global_server_cost()}"
-                # Adding binded machines (clients) infos
-                for client in self.port_input[input_port_number].client:
-                    message += f"\n\t\t{client.name} {client.price}"
-                    # Checking which output port the client is connected to and adding this port to str message
-                    for output_port_number in range(len(self.port_output)):
-                        if client == self.port_output[output_port_number]:
-                            message += f" Port: {output_port_number}"
-=======
                 message += f"\n\t{self.port_input[input_port_number].name} Server Cost: {self.port_input[input_port_number].price} Port: {input_port_number + 1} Server global Cost: {self.port_input[input_port_number].global_server_cost()}"
                 # Adding binded machines (clients) infos
                 for client in self.port_input[input_port_number].client:
@@ -155,17 +118,12 @@ class Network:
                     for output_port_number in range(len(self.port_output)):
                         if client == self.port_output[output_port_number]:
                             message += f" Port: {output_port_number + 1}"
->>>>>>> main
         
         # Adding outputs ports recap to str message
         port_output_names = [] # (this array is used to display the distribution of the clients inside the network)
         for output_port_number in range(len(self.port_output)):
             if self.port_output[output_port_number] != 0:
-<<<<<<< HEAD
-                port_output_names.append(self.port_output[output_port_number].name)
-=======
                 port_output_names.append(self.port_output[output_port_number].binded_server.name)
->>>>>>> main
             else :
                 port_output_names.append(0)
         message += f"\n\nPorts OUT: {port_output_names}"

@@ -1,12 +1,6 @@
-import sqlite3
-import networkSystem
-
-def create_database():
-
-    net = networkSystem.Network("IPI1-DEV")
-    serv1 = networkSystem.Server("S1")
-    serv2 = networkSystem.Server("S2")     
-    serv3 = networkSystem.Server("S3")
+def create_database(net):
+    import sqlite3
+    import networkSystem
 
     conn = sqlite3.connect('NetworkDB1.db')
     cur = conn.cursor()
@@ -43,15 +37,30 @@ def create_database():
     """)
 
 
-    clients = [(f'C{i}', 1000, net.port_output[i-1]) for i in range(1, 17)]
-    cur.executemany("INSERT INTO Client (name, price, port_output) VALUES (?, ?, ?)", clients)
-
-    servers = [
-        (serv1.name, net.port_input[0], 5000, serv1.client, net.port_input, serv1.price),
-        (serv2.name, net.port_input[1], 5000,serv2.client , net.port_input, serv2.price),
-        (serv3.name, net.port_input[2], 5000,serv3.client , net.port_input, serv3.price)
+    clients = [
+        (f'C{i}', 1000, net.port_output[i-1].name if hasattr(net.port_output[i-1], "name") else str(net.port_output[i-1]))
+        for i in range(1, 17)
     ]
-    cur.executemany("INSERT INTO Server (name, price, ClientsNameTable, port_input, TotalPriceServ) VALUES (?, ?, ?, ?, ?)", servers)
+    cur.executemany("INSERT INTO Client (name, price, port_output) VALUES (?, ?, ?)", clients)
+    
+    print("Contenu de net.port_input :", net.port_input)
+    servers = []
+    for idx, serv in enumerate(net.port_input):
+        if serv != 0:
+            # Calcul du prix global du serveur (si pas déjà fait)
+            if not hasattr(serv, "global_price"):
+                serv.global_server_cost()
+            servers.append((
+                serv.name,
+                serv.price,
+                ",".join([client.name for client in serv.client]),
+                idx + 1,  # port_input = position dans la liste (1, 2, 3)
+                serv.global_price
+            ))
+    cur.executemany(
+        "INSERT INTO Server (name, price, ClientsNameTable, port_input, TotalPriceServ) VALUES (?, ?, ?, ?, ?)",
+        servers
+    )
 
     network = [
         (str(net.port_output), 18000),

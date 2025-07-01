@@ -30,8 +30,8 @@ if __name__ == "__main__":
 
     printer1 = Printer("p1", "192.168.100.1")
 
-    server_1.bind([])
-    server_2.bind([])
+    server_1.bind([client1, client2])
+    server_2.bind([client3])
     server_3.bind([])
     server_4.bind([])
     server_5.bind([])
@@ -45,10 +45,12 @@ if __name__ == "__main__":
     network2.add_server(server_4)
     network2.add_server(server_5)
 
-    db_path = "NetworkDB1.db"
-    if os.path.exists(db_path):
-        os.remove(db_path)
-    create_database()
+
     
     view = networkView([network1, network2])
     print(view)
+    
+    db_path = "NetworkDB1.db"
+    if os.path.exists(db_path):
+        os.remove(db_path)
+    create_database(network1)
