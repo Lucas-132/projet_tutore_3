@@ -1,12 +1,14 @@
 import sqlite3
-import networkClasses
+import networkSystem
 
 def create_database():
 
-    net = networkClasses.Network("IPI1-DEV") 
+    net = networkSystem.Network("IPI1-DEV")
+    serv1 = networkSystem.Server("S1")
+    serv2 = networkSystem.Server("S2")     
+    serv3 = networkSystem.Server("S3")
 
-
-    conn = sqlite3.connect('NetworkDB.db')
+    conn = sqlite3.connect('NetworkDB1.db')
     cur = conn.cursor()
 
 
@@ -45,9 +47,9 @@ def create_database():
     cur.executemany("INSERT INTO Client (name, price, port_output) VALUES (?, ?, ?)", clients)
 
     servers = [
-        (net.port_input[0], 5000, net.clients_list, 1, 6000),
-        (net.port_input[1], 5000,net.clients_list , 2, 6000),
-        (net.port_input[2], 5000,net.clients_list , 3, 6000)
+        (serv1.name, net.port_input[0], 5000, serv1.client, net.port_input, serv1.price),
+        (serv2.name, net.port_input[1], 5000,serv2.client , net.port_input, serv2.price),
+        (serv3.name, net.port_input[2], 5000,serv3.client , net.port_input, serv3.price)
     ]
     cur.executemany("INSERT INTO Server (name, price, ClientsNameTable, port_input, TotalPriceServ) VALUES (?, ?, ?, ?, ?)", servers)
 

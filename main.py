@@ -1,4 +1,4 @@
-from networkClasses import *
+from networkSystem import *
 from NetworkDB import create_database
 import os
 import NetworkDB
