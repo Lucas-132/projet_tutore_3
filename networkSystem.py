@@ -1,4 +1,5 @@
 import random
+import re
 
 class Server:
     def __init__ (self, name:str, price:int= 5000):
@@ -29,7 +30,6 @@ class Server:
         return f"Server name : {self.name}\nServer price :{self.price}\nClients connected to server : {clients_lists}"
     
 class Client(Server):
-    
     def __init__(self, name : str, price:int=1000):
         super().__init__(name, price)
         self.name = name
@@ -37,7 +37,16 @@ class Client(Server):
         self.binded_server = None
 
     def __str__(self):
-        return f"PC name : {self.name}, PC price :{self.price}"
+        return f"PC name : {self.name}, PC price : {self.price}"
+    
+class Printer(Server):
+    def __init__(self, ip:str, price = 1000):
+        super().__init__(price)
+        self.ip = ip
+        self.price = price
+
+    def __str__(self):
+        return f"Printer IP : {self.ip}, Printer price : {self.price}"
         
 class Network:
     
