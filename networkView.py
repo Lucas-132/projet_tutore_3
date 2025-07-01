@@ -12,4 +12,8 @@ class networkView:
             self.networks.remove(network)
 
   def __str__(self):
-    pass
+    message = ""
+    for view in self.networks:
+       message += f"{view}\n\n"
+    return message
+       
