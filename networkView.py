@@ -1,4 +1,15 @@
-from networkClasses import *
+from networkSystem import *
 
 class networkView:
-  pass
+  def __init__(self, networks: list[Network]):
+    self.networks = networks
+
+  def add_network(self, networks: list[Network]):
+    self.networks.append(networks)
+  
+  def delete_network(self, networks : list[Network]):
+    for network in networks:
+            self.networks.remove(network)
+
+  def __str__(self):
+    pass
