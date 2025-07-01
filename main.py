@@ -31,10 +31,10 @@ if __name__ == "__main__":
   network.add_server(server_2)
   network.add_server(server_3)
 
-  print(network.port_entree)
-  print(network.port_sortie)
+  print(network.port_input)
+  print(network.port_output)
 
   network.delete_server(server_1)
 
-  print(network.port_entree)
-  print(network.port_sortie)
+  print(network.port_input)
+  print(network.port_output)

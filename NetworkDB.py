@@ -17,44 +17,44 @@ cur.execute("DROP TABLE IF EXISTS Network")
 
 cur.execute("""
 CREATE TABLE IF NOT EXISTS Client (
-    nom TEXT PRIMARY KEY,
-    prix INT,
-    port_sortie TEXT
+    name TEXT PRIMARY KEY,
+    price INT,
+    port_output TEXT
 )
 """)
 
 cur.execute("""
 CREATE TABLE IF NOT EXISTS Server (
-    nom TEXT PRIMARY KEY,
-    prix INT,
-    TableauDesNomsDesClients TEXT,
-    port_entree TEXT,
-    PrixTotalServ INT
+    name TEXT PRIMARY KEY,
+    price INT,
+    ClientsNameTable TEXT,
+    port_input TEXT,
+    TotalPriceServ INT
 )
 """)
 
 cur.execute("""
 CREATE TABLE IF NOT EXISTS Network (
     ListPort TEXT, 
-    PrixTotalNet INT
+    TotalPriceNet INT
 )
 """)
 
 
-clients = [(f'C{i}', 1000, net.port_sortie[i-1]) for i in range(1, 17)]
-cur.executemany("INSERT INTO Client (nom, prix, port_sortie) VALUES (?, ?, ?)", clients)
+clients = [(f'C{i}', 1000, net.port_output[i-1]) for i in range(1, 17)]
+cur.executemany("INSERT INTO Client (name, price, port_output) VALUES (?, ?, ?)", clients)
 
 servers = [
-    ('S1', 5000, 'C1', str(net.port_entree), 6000),
-    ('S2', 5000, 'C2', str(net.port_entree), 6000),
-    ('S3', 5000, 'C3', str(net.port_entree), 6000),
+    ('S1', 5000, 'C1', str(net.port_input), 6000),
+    ('S2', 5000, 'C2', str(net.port_input), 6000),
+    ('S3', 5000, 'C3', str(net.port_input), 6000),
 ]
-cur.executemany("INSERT INTO Server (nom, prix, TableauDesNomsDesClients, port_entree, PrixTotalServ) VALUES (?, ?, ?, ?, ?)", servers)
+cur.executemany("INSERT INTO Server (name, price, ClientsNameTable, port_input, TotalPriceServ) VALUES (?, ?, ?, ?, ?)", servers)
 
 network = [
-    (str(net.port_sortie), 18000),
+    (str(net.port_output), 18000),
 ]
-cur.executemany("INSERT INTO Network (ListPort, PrixTotalNet) VALUES (?, ?)", network)
+cur.executemany("INSERT INTO Network (ListPort, TotalPriceNet) VALUES (?, ?)", network)
 
 conn.commit()
 cur.close()
