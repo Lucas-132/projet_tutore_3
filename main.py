@@ -1,10 +1,13 @@
-from networkClasses import *
+from networkSystem import *
+from networkView import *
 
 #if __name__ == "__main__":
 server_1 = Server("S1")
 server_2 = Server("S2", 10000)
 server_3 = Server("S3", 7000)
-  
+server_4 = Server("S4", 4000)
+server_5 = Server("S5", 8000)
+
 client1 = Client("c1")
 client2 = Client("c2", 2000)
 client3 = Client("c3", 3000)
@@ -22,19 +25,22 @@ client14 = Client("c14", 2000)
 client15 = Client("c15", 3000)
 client16 = Client("c16", 3000)
 
-server_1.bind([client1, client4, client5, client10])
-server_2.bind([client2])
-server_3.bind([client3])
+printer1 = Printer("p1", "192.168.100.1")
 
-network = Network("IPI1-DEV")
-network.add_server(server_1)
-network.add_server(server_2)
-network.add_server(server_3)
+server_1.bind([])
+server_2.bind([])
+server_3.bind([])
+server_4.bind([])
+server_5.bind([])
 
-print(network.port_input)
-print(network.port_output)
+network1 = Network("IPI1-DEV")
+network1.add_server(server_1)
+network1.add_server(server_2)
+network1.add_server(server_3)
 
-network.delete_server(server_1)
+network2 = Network("IPI2-RESEAU")
+network2.add_server(server_4)
+network2.add_server(server_5)
 
-print(network.port_input)
-print(network.port_output)
+view = networkView([network1, network2])
+print(view)
