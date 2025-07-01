@@ -9,6 +9,8 @@ class Server:
     def bind(self, others : list[object]):
         for machine in others:
             self.client.append(machine)
+            machine.binded_server = self
+        
     
     def unbind(self, others : list[object]):
         for machine in others:
@@ -32,6 +34,7 @@ class Client(Server):
         super().__init__(name, price)
         self.name = name
         self.price = price
+        self.binded_server = None
 
     def __str__(self):
         return f"PC name : {self.name}, PC price :{self.price}"
@@ -57,10 +60,8 @@ class Network:
         temp_free_space_selected = 0
         for port in range(len(self.port_output)) :
             if self.port_output[port] == 0:
-                free_space_output.append(port)
-        
+                free_space_output.append(port) 
         for client in range (len(other.client)):
-            """self.port_output[port] = other.client[client]"""
             temp_free_space_selected = random.choice(free_space_output)
             self.port_output[temp_free_space_selected] = other.client[client]
             free_space_output.remove(temp_free_space_selected)
@@ -107,7 +108,7 @@ class Network:
         port_output_names = [] # (this array is used to display the distribution of the clients inside the network)
         for output_port_number in range(len(self.port_output)):
             if self.port_output[output_port_number] != 0:
-                port_output_names.append(self.port_output[output_port_number].name)
+                port_output_names.append(self.port_output[output_port_number].binded_server.name)
             else :
                 port_output_names.append(0)
         message += f"\n\nPorts OUT: {port_output_names}"
