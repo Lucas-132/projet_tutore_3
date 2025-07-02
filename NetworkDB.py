@@ -60,9 +60,17 @@ def create_database(net):
         "INSERT INTO Server (name, price, ClientsNameTable, port_input, TotalPriceServ) VALUES (?, ?, ?, ?, ?)",
         servers
     )
-
+    # Adding outputs ports recap to str message
+    message = ""
+    port_output_names = [] # (this array is used to display the distribution of the clients inside the network)
+    for output_port_number in range(len(net.port_output)):
+        if net.port_output[output_port_number] != 0:
+            port_output_names.append(net.port_output[output_port_number].binded_server.name)
+        else :
+            port_output_names.append(0)
+    message += f"{port_output_names}"
     network = [
-        (str(net.port_output), 18000),
+        (message, 18000),
     ]
     cur.executemany("INSERT INTO Network (ListPort, TotalPriceNet) VALUES (?, ?)", network)
 

@@ -2,7 +2,6 @@ from networkSystem import *
 from networkView import *
 from NetworkDB import create_database
 import os
-import NetworkDB
 
 if __name__ == "__main__":
     server_1 = Server("S1", 10000)
@@ -42,7 +41,7 @@ if __name__ == "__main__":
     db_path = "NetworkDB1.db"
     if os.path.exists(db_path):
         os.remove(db_path)
-    create_database()
+    create_database(network1)
     
     view = networkView([network1])
     print(view)
