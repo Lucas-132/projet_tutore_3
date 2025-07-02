@@ -13,9 +13,9 @@ def create_database(net):
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS Client (
-        name TEXT PRIMARY KEY,
+        port_output TEXT PRIMARY KEY,
         price INT,
-        port_output TEXT
+        name TEXT
     )
     """)
 
@@ -38,12 +38,12 @@ def create_database(net):
 
 
     clients = [
-        (f'C{i}', 1000, net.port_output[i-1].name if hasattr(net.port_output[i-1], "name") else str(net.port_output[i-1]))
+        (i, 1000, net.port_output[i-1].name if hasattr(net.port_output[i-1], "name") else str(net.port_output[i-1]))
         for i in range(1, 17)
     ]
-    cur.executemany("INSERT INTO Client (name, price, port_output) VALUES (?, ?, ?)", clients)
+    cur.executemany("INSERT INTO Client (port_output, price, name) VALUES (?, ?, ?)", clients)
     
-    print("Contenu de net.port_input :", net.port_input)
+    
     servers = []
     for idx, serv in enumerate(net.port_input):
         if serv != 0:
