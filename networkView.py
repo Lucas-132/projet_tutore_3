@@ -1,4 +1,6 @@
 from networkSystem import *
+import matplotlib.pyplot as plt
+import numpy as np
 
 class networkView:
   def __init__(self, networks: list[Network]):
@@ -10,6 +12,20 @@ class networkView:
   def delete_network(self, networks : list[Network]):
     for network in networks:
             self.networks.remove(network)
+
+  def graph(self):
+    for network_number in range(len(self.networks)):
+      servers = []
+      servers_prices = []
+      for server in self.networks[network_number].port_input:
+        if server != 0:
+            servers.append(server.name)
+            servers_prices.append(server.price)
+      plt.bar(servers,servers_prices)
+      plt.title(f"{self.networks[network_number].name} server prices")
+      plt.xlabel('servers')
+      plt.ylabel('prices')
+      plt.show()
 
   def __str__(self):
     message = ""
