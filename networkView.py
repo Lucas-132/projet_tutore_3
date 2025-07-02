@@ -22,7 +22,7 @@ class networkView:
             servers.append(server.name)
             servers_prices.append(server.price)
       plt.bar(servers,servers_prices)
-      plt.title('server prices')
+      plt.title(f"{self.networks[network_number].name} server prices")
       plt.xlabel('servers')
       plt.ylabel('prices')
       plt.show()
