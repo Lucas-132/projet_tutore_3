@@ -70,7 +70,7 @@ def create_database(net):
             port_output_names.append(0)
     message += f"{port_output_names}"
     network = [
-        (message, 18000),
+        (message, net.global_cost()),
     ]
     cur.executemany("INSERT INTO Network (ListPort, TotalPriceNet) VALUES (?, ?)", network)
 
