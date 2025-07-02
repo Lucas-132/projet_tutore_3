@@ -47,14 +47,13 @@ def create_database(net):
     servers = []
     for idx, serv in enumerate(net.port_input):
         if serv != 0:
-            # Calcul du prix global du serveur (si pas déjà fait)
             if not hasattr(serv, "global_price"):
                 serv.global_server_cost()
             servers.append((
                 serv.name,
                 serv.price,
                 ",".join([client.name for client in serv.client]),
-                idx + 1,  # port_input = position dans la liste (1, 2, 3)
+                idx + 1, 
                 serv.global_price
             ))
     cur.executemany(
