@@ -2,44 +2,32 @@ from networkSystem import *
 from networkView import *
 from networkDB import create_database
 import os
+import json
 
 if __name__ == "__main__":
     try:
-        server_1 = Server("S1", 10000)
-        server_2 = Server("S2")
-        server_3 = Server("S3", 10000)
-        server_4 = Server("S4", 10000)
+        # Chargement du JSON
+        with open("config.json", "r") as f:
+            config = json.load(f)
 
-        client1 = Client("c1")
-        client2 = Client("c2", 2000)
-        client3 = Client("c3", 3000)
-        client4 = Client("c4", 1100)
-        client5 = Client("c5", 2000)
-        client6 = Client("c6", 3000)
-        client7 = Client("c7")
-        client8 = Client("c8", 1200)
-        client9 = Client("c09", 1200)
-        client10 = Client("c10")
-        client11 = Client("c11", 2000)
-        client12 = Client("c12", 1300)
-        client13 = Client("c13")
-        client14 = Client("c14", 1100)
-        client15 = Client("c15", 3000)
-        client16 = Client("c16", 3000)
+        # Création du réseau
+        network1 = Network(config["name"])
 
-        printer1 = Printer("P1", "143.453.23.45", 500)
-        printer2 = Printer("P2", "145.453.23.45", 300)
-        printer3 = Printer("P3", "145.453.23.45", 200)
-
-        server_1.bind([client1, client4, client8, client12, printer1])
-        server_2.bind([client9, printer2])
-        server_3.bind([client14, printer3])
-
-        network1 = Network("IPI Network")
-        network1.add_server(server_1)
-        network1.add_server(server_2)
-        network1.add_server(server_3)
-        """network1.add_server(server_4)""" #Pour raise une erreur
+        for server_data in config["servers"]:
+            server = Server(server_data["name"], server_data.get("cost", 0))
+            
+            # Ajout de l'imprimante
+            p = server_data.get("printer")
+            if p:
+                printer = Printer(p["name"], p["ip"], p["cost"])
+                server.bind([printer])
+            
+            # Ajout des clients
+            for c in server_data.get("clients", []):
+                client = Client(c["name"], c.get("cost", 0))
+                server.bind([client])
+            
+            network1.add_server(server)
 
         db_path = "NetworkDB1.db"
         print("Tentative de suppression de la BDD...")
@@ -56,5 +44,6 @@ if __name__ == "__main__":
         view = networkView([network1])
         print(view)
         view.graph()
+        
     except Exception as e:
         print("\t", str(e))
