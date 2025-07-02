@@ -1,6 +1,6 @@
 from networkSystem import *
 from networkView import *
-from NetworkDB import create_database
+from networkDB import create_database
 import os
 
 if __name__ == "__main__":
