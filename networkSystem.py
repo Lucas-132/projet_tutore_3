@@ -1,5 +1,4 @@
 import random
-import re
 
 class Server:
     def __init__ (self, name:str, price:int= 5000):
@@ -21,6 +20,7 @@ class Server:
         sum = 0
         for machine in self.client:
             sum += machine.price
+        self.global_price = sum + self.price
         return sum + self.price
     
     def __str__(self):
@@ -64,6 +64,8 @@ class Network:
         for port in range(len(self.port_input)) :
             if self.port_input[port] == 0:
                 free_space_input.append(port)
+        if (len(free_space_input)) == 0:
+            raise Exception ("You have only 3 port input, you can't insert more than 3 servers.")
         self.port_input[random.choice(free_space_input)] = other
         
         # Outputs
