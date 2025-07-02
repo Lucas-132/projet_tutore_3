@@ -17,20 +17,12 @@ class networkView:
     for network_number in range(len(self.networks)):
       servers = []
       servers_prices = []
-<<<<<<< HEAD
-      for server in self.networks[network_number].port_input:
-        if server != 0:
-            servers.append(server.name)
-            servers_prices.append(server.price)
-      plt.bar(servers,servers_prices)
-=======
       colors = ['tab:red', 'tab:blue', 'tab:green']
       for server in self.networks[network_number].port_input:
         if server != 0:
             servers.append(server.name)
             servers_prices.append(server.global_server_cost())
       plt.bar(servers,servers_prices,color=colors)
->>>>>>> main
       plt.title(f"{self.networks[network_number].name} server prices")
       plt.xlabel('servers')
       plt.ylabel('prices')

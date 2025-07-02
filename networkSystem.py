@@ -20,10 +20,7 @@ class Server:
         sum = 0
         for machine in self.client:
             sum += machine.price
-<<<<<<< HEAD
-=======
         self.global_price = sum + self.price
->>>>>>> main
         return sum + self.price
     
     def __str__(self):
