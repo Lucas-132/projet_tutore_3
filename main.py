@@ -30,15 +30,8 @@ if __name__ == "__main__":
             network1.add_server(server)
 
         db_path = "NetworkDB1.db"
-        print("Tentative de suppression de la BDD...")
         if os.path.exists(db_path):
-            try:
-                os.remove(db_path)
-                print("BDD supprimée.")
-            except Exception as e:
-                print("Erreur lors de la suppression :", e)
-        else:
-            print("Aucune BDD à supprimer.")
+            os.remove(db_path)
         create_database(network1)
         
         view = networkView([network1])
