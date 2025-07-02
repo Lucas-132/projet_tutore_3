@@ -1,0 +1,40 @@
+{
+  "name": "IPI Network",
+  "servers": [
+    {
+      "name": "S1",
+      "cost": 10000,
+      "printer": {
+        "name": "P1",
+        "ip": "143.453.23.45",
+        "cost": 500
+      },
+      "clients": [
+        { "name": "C1", "cost": 1000 },
+        { "name": "C4", "cost": 1100 },
+        { "name": "C8", "cost": 1200 },
+        { "name": "C12", "cost": 1300 }
+      ]
+    },
+    {
+      "name": "S2",
+      "cost": 5000,
+      "printer": {
+        "name": "P2",
+        "ip": "145.453.23.45",
+        "cost": 300
+      },
+      "clients": [{ "name": "C09", "cost": 1200 }]
+    },
+    {
+      "name": "S3",
+      "cost": 10000,
+      "printer": {
+        "name": "P3",
+        "ip": "145.453.23.45",
+        "cost": 200
+      },
+      "clients": [{ "name": "C14", "cost": 1100 }]
+    }
+  ]
+}
