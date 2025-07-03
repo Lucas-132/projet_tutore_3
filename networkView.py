@@ -28,7 +28,7 @@ class networkView:
       plt.ylabel('prices')
       plt.show()
 
-  def __str__(self):
+  def __str__(self) -> str:
     message = ""
     for view in self.networks:
        message += f"{view}\n\n"
