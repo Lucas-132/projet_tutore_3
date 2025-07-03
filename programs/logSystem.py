@@ -6,7 +6,7 @@ import os
 
 
 class LogSystem:
-  def __init__(self, configjson: str = "config.json"):
+  def __init__(self, configjson: str):
     self.configjson = configjson
   
   def log(self):
