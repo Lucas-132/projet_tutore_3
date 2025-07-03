@@ -1,4 +1,4 @@
-from networkSystem import *
+from programs.networkSystem import *
 import matplotlib.pyplot as plt
 import numpy as np
 

@@ -1,6 +1,6 @@
 import json
-from networkSystem import *
-from networkView import *
+from programs.networkSystem import *
+from programs.networkView import *
 from networkDB import create_database
 import os
 
