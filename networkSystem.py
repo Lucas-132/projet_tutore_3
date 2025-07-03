@@ -23,7 +23,7 @@ class Server:
         self.global_price = sum + self.price
         return sum + self.price
     
-    def __str__(self):
+    def __str__(self) -> str:
         clients_lists = ""
         for client in self.client:
             clients_lists += client.name + ", "
@@ -36,7 +36,7 @@ class Client(Server):
         self.price = price
         self.binded_server = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"PC name : {self.name}, PC price : {self.price}"
     
 class Printer(Server):
@@ -47,17 +47,15 @@ class Printer(Server):
         self.price = price
         self.binded_server = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Printer IP : {self.ip}, Printer price : {self.price}"
         
 class Network:
-    
     def __init__(self, name:str):
         self.port_input = [0 for x in range(3)]
         self.port_output = [0 for x in range(16)]
         self.name = name
 
-    
     def add_server(self, other: Server):
         # Inputs
         free_space_input = []
