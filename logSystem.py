@@ -1,6 +1,8 @@
 import json
 from networkSystem import *
 from networkView import *
+from networkDB import create_database
+import os
 
 
 class LogSystem:
@@ -35,3 +37,8 @@ class LogSystem:
     view = networkView([network])
     print(view)
     view.graph()
+
+  def database(self, file_name = "NetworkDB.db"):
+    if os.path.exists(file_name):
+      os.remove(file_name)
+    create_database(network)
