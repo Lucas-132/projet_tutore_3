@@ -1,7 +1,17 @@
 import random
 
-class Server:
+class Machine:
+    def __init__(self, name:str, price:int):
+        self.name = name
+        self.price = price
+
+    def __str__(self):
+        return f"Name : {self.name}, Price : {self.price}"
+    
+
+class Server(Machine):
     def __init__ (self, name:str, price:int= 5000):
+        super().__init__(name, price)
         self.name = name
         self.price = price
         self.client : list[object] = []
@@ -24,12 +34,9 @@ class Server:
         return sum + self.price
     
     def __str__(self) -> str:
-        clients_lists = ""
-        for client in self.client:
-            clients_lists += client.name + ", "
-        return f"Server name : {self.name}\nServer price :{self.price}\nClients connected to server : {clients_lists}"
+        return super().__str__()
     
-class Client(Server):
+class Client(Machine):
     def __init__(self, name : str, price:int=1000):
         super().__init__(name, price)
         self.name = name
@@ -37,9 +44,9 @@ class Client(Server):
         self.binded_server = None
 
     def __str__(self) -> str:
-        return f"PC name : {self.name}, PC price : {self.price}"
+        return super().__str__()
     
-class Printer(Server):
+class Printer(Machine):
     def __init__(self, name, ip:str, price = 1000):
         super().__init__(name, price)
         self.name = name
@@ -47,8 +54,8 @@ class Printer(Server):
         self.price = price
         self.binded_server = None
 
-    def __str__(self) -> str:
-        return f"Printer IP : {self.ip}, Printer price : {self.price}"
+    def __str__(self):
+        return super().__str__()
         
 class Network:
     def __init__(self, name:str):
