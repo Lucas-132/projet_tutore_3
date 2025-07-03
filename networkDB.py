@@ -1,8 +1,7 @@
 def create_database(net):
     import sqlite3
-    import networkSystem
 
-    conn = sqlite3.connect('NetworkDB1.db')
+    conn = sqlite3.connect('NetworkDB.db')
     cur = conn.cursor()
 
 

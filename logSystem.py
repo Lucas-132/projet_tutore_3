@@ -33,12 +33,12 @@ class LogSystem:
         
         network.add_server(server)
     
-  def launch(self):
+  def launchView(self):
     view = networkView([network])
     print(view)
     view.graph()
 
-  def database(self, file_name = "NetworkDB.db"):
+  def launchDatabase(self, file_name = "NetworkDB.db"):
     if os.path.exists(file_name):
       os.remove(file_name)
     create_database(network)
